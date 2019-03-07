@@ -9,7 +9,7 @@ except (IOError, ImportError):
     description = ''
 
 setup(name='dwdweather',
-      version='0.7',
+      version='0.7.1',
       description='Inofficial DWD weather data client (Deutscher Wetterdienst)',
       long_description=description,
       long_description_content_type='text/markdown',

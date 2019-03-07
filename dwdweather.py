@@ -8,7 +8,12 @@ import json
 import math
 import sqlite3
 import argparse
-import StringIO
+
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
+    
 import traceback
 from ftplib import FTP
 from zipfile import ZipFile
@@ -878,7 +883,7 @@ def main():
 
     def get_station(args):
         dw = DwdWeather(cachepath=args.cachepath, verbosity=args.verbosity)
-        print json.dumps(dw.nearest_station(lon=args.lon, lat=args.lat), indent=4)
+        print(json.dumps(dw.nearest_station(lon=args.lon, lat=args.lat), indent=4))
 
     def get_stations(args):
         dw = DwdWeather(cachepath=args.cachepath, verbosity=args.verbosity)
@@ -890,7 +895,7 @@ def main():
         elif args.type == "plain":
             output = dw.stations_csv(delimiter="\t")
         if args.output_path is None:
-            print output
+            print(output)
         else:
             f = open(args.output_path, "wb")
             f.write(output)
@@ -899,7 +904,7 @@ def main():
     def get_weather(args):
         hour = datetime.strptime(str(args.hour), "%Y%m%d%H")
         dw = DwdWeather(cachepath=args.cachepath, verbosity=args.verbosity)
-        print json.dumps(dw.query(args.station_id, hour), indent=4, sort_keys=True)
+        print(json.dumps(dw.query(args.station_id, hour), indent=4, sort_keys=True))
 
     argparser = argparse.ArgumentParser(prog="dwdweather",
         description="Get weather information for Germany.")
